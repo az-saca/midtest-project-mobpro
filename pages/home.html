@@ -1,0 +1,181 @@
+<template>
+  <div
+    class="page page-home"
+    style="background: url('img/background.jpg'); background-size: cover">
+    <div class="navbar" style="background-color: #0a4940">
+      <div class="navbar-inner">
+        <div class="title teks-putih" style="font-size: 25px; font-weight: 700">
+          Input Photo
+        </div>
+      </div>
+    </div>
+    <div class="page-content">
+      <div class="card kiri2 kanan2 lebar96" style="margin-top: 10px">
+        <div class="card-content card-content-padding">
+          <div class="list no-chevron">
+            <ul>
+              <li>
+                <a class="item-link item-content">
+                  <div class="item-media">
+                    <i class="icon f7-icons">calendar</i>
+                  </div>
+                  <div class="item-inner">
+                    <div
+                      class="item-title"
+                      id="bloktglsekarang"
+                      style="font-size: 25px">
+                      ????
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a class="item-link item-content">
+                  <div class="item-media">
+                    <i class="icon f7-icons">clock</i>
+                  </div>
+                  <div class="item-inner">
+                    <div
+                      class="item-title"
+                      id="blokjamsekarang"
+                      style="font-size: 25px">
+                      ????
+                    </div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="card kiri2 kanan2 lebar96" style="margin-top: -5px">
+        <div class="card-content card-content-padding rata-tengah">
+          <div
+            class="link sheet-open"
+            data-sheet=".demo-sheet"
+            @click="${()=>password()}">
+            <span
+              class="text-area teks-putih"
+              style="background-image: url('img/agenda.png'); max-width: 100%"
+              id="img-preview"
+              >Tap Here to Take a Pic</span
+            >
+          </div>
+          <div class="down" style="margin-top: 10px">
+            <input
+              type="text"
+              name="pass-text"
+              style="font-size: 20px; margin-top: 20px"
+              id="pass-text"
+              placeholder="Password" />
+          </div>
+        </div>
+        
+      </div> -->
+
+      <div class="card card-outline-md demo-card-header-pic">
+        <!-- <div
+          style="
+            background-image: url(https://cdn.framework7.io/placeholder/nature-1000x600-3.jpg);
+          "
+          valign="bottom"
+          id="img-preview"
+          class="card-header sheet-open"
+          data-sheet=".demo-sheet"
+          @click="${()=>password()}">
+          Tap here to take a picture
+        </div> -->
+        <div class="card-content card-content-padding">
+          <button
+            class="button button-fill color-red"
+            @click="${()=>reset()}"
+            style="
+              width: 30px;
+              height: 30px;
+              position: absolute;
+              right: 17px;
+              top: 17px;
+            ">
+            <i class="icon f7-icons color-white">multiply</i>
+          </button>
+          <img
+            id="img-preview"
+            class="sheet-open"
+            src="https://cdn.framework7.io/placeholder/nature-1000x600-3.jpg"
+            style="width: 100%; border-radius: 10px"
+            alt=""
+            data-sheet=".demo-sheet"
+            @click="${() => password()}" />
+          <div
+            style="
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+            "
+            id="teks">
+            Tap to take a pic
+          </div>
+        </div>
+        <div class="card-footer">
+          <input
+            type="text"
+            name="pass-text"
+            style="font-size: 20px; margin-top: 20px"
+            id="pass-text"
+            placeholder="Password" />
+        </div>
+      </div>
+    </div>
+    <div class="sheet-modal demo-sheet">
+      <div class="toolbar">
+        <div class="toolbar-inner">
+          <div class="left"></div>
+          <div class="right">
+            <a class="link sheet-close">Close</a>
+          </div>
+        </div>
+      </div>
+      <div class="sheet-modal-inner">
+        <div class="page-content">
+          <div class="block">
+            <div class="grid grid-cols-1 grid-gap">
+              <button
+                class="button"
+                id="btn1"
+                style="color: black"
+                @click="${()=>speech()}">
+                Take Picture
+              </button>
+            </div>
+            <div class="grid grid-cols-1 grid-gap">
+              <button
+                class="button"
+                id="btn2"
+                style="color: black"
+                @click="${()=>speech()}">
+                Select From Device
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+  export default (props, { $f7, $onMounted, $onBeforeUnmount }) => {
+    let popupSwipeHandler;
+    $onMounted(() => {
+      popupSwipeHandler = $f7.popup.create({
+        el: ".popup-swipe-handler",
+        swipeToClose: "to-bottom",
+        swipeHandler: ".swipe-handler",
+      });
+    });
+    $onBeforeUnmount(() => {
+      if (popupSwipeHandler) popupSwipeHandler.destroy();
+    });
+    return $render;
+  };
+</script>

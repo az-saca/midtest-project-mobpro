@@ -1,0 +1,71 @@
+.teks-putih {
+  color: white;
+}
+.lebar96 {
+  width: 96%;
+}
+.lebar94 {
+  width: 94%;
+}
+.kiri2 {
+  margin-left: 2%;
+}
+.kiri3 {
+  margin-left: 3%;
+}
+.kanan2 {
+  margin-right: 2%;
+}
+.kanan3 {
+  margin-right: 3%;
+}
+.radius20 {
+  border-radius: 20px;
+}
+.font14 {
+  font-size: 14px;
+}
+.font25 {
+  font-size: 25px;
+}
+.tanpa-border {
+  border-width: 0px;
+}
+.rata-tengah {
+  text-align: center;
+}
+.text-area {
+  padding: 30px;
+  background-color: blue;
+  border-radius: 20px;
+  font-size: 40px;
+}
+
+:root {
+  --f7-popup-border-radius: 20px;
+  --f7-popup-tablet-width: 630px;
+  --f7-popup-tablet-height: 630px/3;
+  --f7-popup-push-offset: var(--f7-safe-area-top);
+  /*
+  --f7-popup-tablet-border-radius: var(--f7-popup-border-radius); */
+}
+
+.ios {
+  --f7-popup-tablet-border-radius: 5px;
+  --f7-popup-transition-duration: 400ms;
+  --f7-popup-transition-timing-function: initial;
+  --f7-popup-push-border-radius: 10px;
+}
+.md {
+  --f7-popup-tablet-border-radius: 28px;
+  --f7-popup-transition-duration: 600ms;
+  --f7-popup-transition-timing-function: cubic-bezier(0, 1, 0.2, 1);
+  --f7-popup-push-border-radius: 28px;
+  --f7-popup-push-width: 100%;
+  --f7-popup-push-height: 25%;
+}
+
+/* .popup-quarter-screen {
+  height: 25%;
+  width: 50%;
+} */

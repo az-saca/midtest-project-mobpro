@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent" />
+    <meta name="theme-color" content="#fff" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data:" />
+    <title>UTS Mobile Programming</title>
+    <link rel="stylesheet" href="core/framework7-bundle.min.css" />
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="apple-touch-icon" href="img/f7-icon-square.png" />
+    <link rel="icon" href="img/f7-icon.png" />
+    <link rel="stylesheet" href="css/custom.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div
+        class="view view-main view-init safe-areas"
+        data-master-detail-breakpoint="768"
+        data-url="/"></div>
+    </div>
+    <script src="core/framework7-bundle.min.js"></script>
+    <script src="js/routes.js"></script>
+    <script src="js/store.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="https://drive.crazycode.my.id/datajs/produk.js"></script>
+    <script src="cordova.js"></script>
+    <script>
+      let terjemahanbulan = [
+        "",
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "Mei",
+        "Jun",
+        "Jul",
+        "Agu",
+        "Sep",
+        "Okt",
+        "Nov",
+        "Des",
+      ];
+      let terjemahanhari = [
+        "Ahad",
+        "Senin",
+        "Selasa",
+        "Rabu",
+        "Kamis",
+        "Jumat",
+        "Sabtu",
+      ];
+
+      function tglsekarang() {
+        let x = new Date();
+        var hr, tgl, blm, thn;
+        hr = terjemahanhari[x.getDay()];
+        tgl = x.getDate() <= 9 ? `0${x.getDate()}` : x.getDate();
+        bln = terjemahanbulan[x.getMonth() + 1];
+        thn = x.getFullYear();
+        return `${hr}, ${tgl} ${bln} ${thn}`;
+      }
+
+      function jamsekarang() {
+        var x = new Date();
+        var jm, mn, dt;
+        jm = x.getHours() <= 9 ? `0${x.getHours()}` : x.getHours();
+        mn = x.getMinutes() <= 9 ? `0${x.getMinutes()}` : x.getMinutes();
+        dt = x.getSeconds() <= 9 ? `0${x.getSeconds()}` : x.getSeconds();
+        return `${jm}:${mn}:${dt}`;
+      }
+
+      setInterval(function () {
+        $("#bloktglsekarang").html(tglsekarang());
+        $("#blokjamsekarang").html(jamsekarang());
+      }, 1000);
+
+      // document.getElementById("btn1").addEventListener("click", btn1);
+      function opencamera() {
+        navigator.camera.getPicture(
+          function onSuccess(imageData) {
+            app.dialog.alert(imageData);
+            // let src = "data:image/jpeg;base64," + imageData;
+            let image = document.getElementById("img-preview");
+            image.src = "data:image/jpeg;base64," + imageData;
+            $("#teks").css("display", "none");
+          },
+          function onFail(message) {
+            alert("Failed because: " + message);
+          },
+          {
+            // quality: 80,
+            // destinationType: Camera.DestinationType.FILE_URI,
+            // sourceType: Camera.PictureSourceType.CAMERA,
+            // mediaType: Camera.MediaType.PICTURE,
+            // encodingType: Camera.EncodingType.JPEG,
+            // cameraDirection: Camera.Direction.BACK,
+            // targetWidth: 300,
+            // targetHeight: 400,
+            // Some common settings are 20, 50, and 100
+            quality: 50,
+            destinationType: Camera.DestinationType.DATA_URL,
+            // In this app, dynamically set the picture source, Camera or photo gallery
+            sourceType: Camera.PictureSourceType.CAMERA,
+            encodingType: Camera.EncodingType.JPEG,
+            mediaType: Camera.MediaType.PICTURE,
+            saveToPhotoAlbum: true,
+          }
+        );
+      }
+
+      function speech() {
+        window.plugins.speechRecognition.isRecognitionAvailable(
+          function onSuccess() {
+            window.plugins.speechRecognition.requestPermission(
+              function onSuccess() {
+                window.plugins.speechRecognition.startListening(
+                  function onSuccess(result) {
+                    // opencamera();
+                    app.dialog.alert(result);
+                    let password = $("#pass-text").val();
+                    if (password == result) {
+                      opencamera();
+                    } else {
+                      app.alert.dialog("Password tidak sesuai");
+                    }
+                  },
+                  function onError(error) {
+                    app.dialog.alert(error);
+                  },
+                  {
+                    language: "id-ID",
+                    // matches: 5,
+                    showPopup: true,
+                    // showPartial: true,
+                  }
+                );
+              },
+              function onError() {}
+            );
+          },
+          function onError(error) {
+            app.dialog.alert(error);
+          }
+        );
+      }
+
+      function reset() {}
+
+      function password() {
+        var things = ["aku", "kamu", "kita", "sepeda", "lucu", "imut"];
+        var result = things[Math.floor(Math.random() * things.length)];
+        // return result;
+        // $("#pass-text").val(result);
+      }
+    </script>
+  </body>
+</html>
