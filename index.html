@@ -84,12 +84,10 @@
         $("#blokjamsekarang").html(jamsekarang());
       }, 1000);
 
-      // document.getElementById("btn1").addEventListener("click", btn1);
-      function opencamera() {
+      function openCamera() {
         navigator.camera.getPicture(
           function onSuccess(imageData) {
-            app.dialog.alert(imageData);
-            // let src = "data:image/jpeg;base64," + imageData;
+            // app.dialog.alert(imageData);
             let image = document.getElementById("img-preview");
             image.src = "data:image/jpeg;base64," + imageData;
             $("#teks").css("display", "none");
@@ -98,18 +96,8 @@
             alert("Failed because: " + message);
           },
           {
-            // quality: 80,
-            // destinationType: Camera.DestinationType.FILE_URI,
-            // sourceType: Camera.PictureSourceType.CAMERA,
-            // mediaType: Camera.MediaType.PICTURE,
-            // encodingType: Camera.EncodingType.JPEG,
-            // cameraDirection: Camera.Direction.BACK,
-            // targetWidth: 300,
-            // targetHeight: 400,
-            // Some common settings are 20, 50, and 100
             quality: 50,
             destinationType: Camera.DestinationType.DATA_URL,
-            // In this app, dynamically set the picture source, Camera or photo gallery
             sourceType: Camera.PictureSourceType.CAMERA,
             encodingType: Camera.EncodingType.JPEG,
             mediaType: Camera.MediaType.PICTURE,
@@ -125,11 +113,10 @@
               function onSuccess() {
                 window.plugins.speechRecognition.startListening(
                   function onSuccess(result) {
-                    // opencamera();
-                    app.dialog.alert(result);
+                    // app.dialog.alert(result);
                     let password = $("#pass-text").val();
                     if (password == result) {
-                      opencamera();
+                      openCamera();
                     } else {
                       app.alert.dialog("Password tidak sesuai");
                     }
@@ -139,9 +126,7 @@
                   },
                   {
                     language: "id-ID",
-                    // matches: 5,
                     showPopup: true,
-                    // showPartial: true,
                   }
                 );
               },
@@ -159,7 +144,6 @@
       function password() {
         var things = ["aku", "kamu", "kita", "sepeda", "lucu", "imut"];
         var result = things[Math.floor(Math.random() * things.length)];
-        // return result;
         // $("#pass-text").val(result);
       }
     </script>
