@@ -85,7 +85,7 @@
       }, 1000);
 
       function password() {
-        var things = ["aku", "kamu", "kita", "sepeda", "lucu", "halo"];
+        var things = ["bumi", "bulan", "aksara", "matahari", "saya"];
         var result = things[Math.floor(Math.random() * things.length)];
         $("#pass-text").val(result);
       }
@@ -95,7 +95,7 @@
           function onSuccess(imageData) {
             let image = document.getElementById("img-preview");
             image.src = "data:image/jpeg;base64," + imageData;
-            $("#teks").css("display", "none");
+            $("#text-pic").css("display", "none");
           },
           function onFail(message) {
             alert("Failed because: " + message);
@@ -119,10 +119,10 @@
         });
 
         function onSuccess(imageData) {
-          const image = document.getElementById("img-preview");
+          let image = document.getElementById("img-preview");
           image.src = "data:image/jpeg;base64," + imageData;
           image.style.display = "block";
-          $("#teks").css("display", "none");
+          $("#text-pic").css("display", "none");
         }
 
         function onFail(message) {
@@ -145,7 +145,7 @@
                     }
                   },
                   function onError(error) {
-                    app.dialog.alert("Speech doesn't respond");
+                    app.dialog.alert("Say the specified password");
                   },
                   {
                     language: "id-ID",
@@ -179,7 +179,7 @@
                     }
                   },
                   function onError(error) {
-                    app.dialog.alert("Speech doesn't respond");
+                    app.dialog.alert("Say the specified password");
                   },
                   {
                     language: "id-ID",
@@ -201,8 +201,8 @@
       function reset() {
         let image = document.getElementById("img-preview");
         image.src =
-          "https://cdn.framework7.io/placeholder/nature-1000x600-3.jpg";
-        $("#teks").css("display", "block");
+          "https://cdn.framework7.io/placeholder/nature-1000x600-2.jpg";
+        $("#text-pic").css("display", "block");
         $("#pass-text").val("");
       }
     </script>

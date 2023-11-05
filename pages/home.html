@@ -1,8 +1,8 @@
 <template>
   <div
     class="page page-home"
-    style="background: url('img/background.jpg'); background-size: cover">
-    <div class="navbar" style="background-color: #0a4940">
+    style="background: url('img/back-wall.jpg'); background-size: cover">
+    <div class="navbar" style="background-color: #776445">
       <div class="navbar-inner">
         <div class="title teks-putih" style="font-size: 25px; font-weight: 700">
           Input Photo
@@ -65,21 +65,29 @@
           <img
             id="img-preview"
             class="sheet-open"
-            src="https://cdn.framework7.io/placeholder/nature-1000x600-3.jpg"
+            src="https://cdn.framework7.io/placeholder/nature-1000x600-2.jpg"
             style="width: 100%; border-radius: 10px"
             alt=""
             data-sheet=".demo-sheet"
             @click="${() => password()}" />
           <div
+            class="sheet-open"
+            data-sheet=".demo-sheet"
             style="
               position: absolute;
               top: 50%;
               left: 50%;
-              transform: translate(-75%, -25%, -50%, -50%);
+              transform: translate(-50%, -50%);
+              text-align: center;
               font-size: 30px;
-              font-weight: 500;
+              font-weight: 700;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              color: white;
             "
-            id="teks">
+            id="text-pic"
+            @click="${() => password()}">
             Tap to take a pic
           </div>
         </div>
@@ -103,26 +111,22 @@
           </div>
         </div>
       </div>
-      <div class="sheet-modal-inner">
-        <div class="page-content">
-          <div class="block">
-            <div class="grid grid-cols-1 grid-gap">
-              <button
-                class="button sheet-close"
-                id="btn1"
-                style="color: black"
-                @click="${()=>speech()}">
-                Take Picture
-              </button>
-            </div>
-            <div class="grid grid-cols-1 grid-gap">
-              <button
-                class="button sheet-close"
-                id="btn2"
-                style="color: black"
-                @click="${()=>speech2()}">
-                Select From Device
-              </button>
+      <div
+        class="sheet-modal demo-sheet sheet-close"
+        style="height: auto"
+        id="ppk">
+        <div class="sheet-modal-inner">
+          <div class="page-content">
+            <div
+              class="list list-strong-ios list-outline-ios list-dividers-ios links-list">
+              <ul>
+                <li>
+                  <a href="#" @click="${()=>speech()}">Take Picture</a>
+                </li>
+                <li>
+                  <a href="#" @click="${()=>speech2()}">Select from Device</a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -131,18 +135,7 @@
   </div>
 </template>
 <script>
-  export default (props, { $f7, $onMounted, $onBeforeUnmount }) => {
-    let popupSwipeHandler;
-    $onMounted(() => {
-      popupSwipeHandler = $f7.popup.create({
-        el: ".popup-swipe-handler",
-        swipeToClose: "to-bottom",
-        swipeHandler: ".swipe-handler",
-      });
-    });
-    $onBeforeUnmount(() => {
-      if (popupSwipeHandler) popupSwipeHandler.destroy();
-    });
+  export default function (props, ctx) {
     return $render;
-  };
+  }
 </script>
