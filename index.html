@@ -122,7 +122,7 @@
                     }
                   },
                   function onError(error) {
-                    app.dialog.alert(error);
+                    // app.dialog.alert(error);
                   },
                   {
                     language: "id-ID",
@@ -134,17 +134,83 @@
             );
           },
           function onError(error) {
-            app.dialog.alert(error);
+            // app.dialog.alert(error);
           }
         );
       }
 
-      function reset() {}
+      function speech2() {
+        window.plugins.speechRecognition.isRecognitionAvailable(
+          function onSuccess() {
+            window.plugins.speechRecognition.requestPermission(
+              function onSuccess() {
+                window.plugins.speechRecognition.startListening(
+                  function onSuccess(result) {
+                    // app.dialog.alert(result);
+                    let password = $("#pass-text").val();
+                    if (password == result) {
+                      // openCamera();
+                      openGallery();
+                    } else {
+                      app.alert.dialog("Password tidak sesuai");
+                    }
+                  },
+                  function onError(error) {
+                    // app.dialog.alert(error);
+                  },
+                  {
+                    language: "id-ID",
+                    showPopup: true,
+                  }
+                );
+              },
+              function onError() {
+                // app.dialog.alert("")
+              }
+            );
+          },
+          function onError(error) {
+            // app.dialog.alert(error);
+          }
+        );
+      }
+
+      function openGallery() {
+        navigator.camera.getPicture(onSuccess, onFail, {
+          quality: 50,
+          destinationType: Camera.DestinationType.DATA_URL,
+          sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
+        });
+
+        function onSuccess(imageData) {
+          const image = document.getElementById("img-preview");
+          // const teksimage = document.getElementById("txt");
+          image.src = "data:image/jpeg;base64," + imageData;
+          image.style.display = "block";
+          $("#teks").css("display", "none");
+
+          // teksimage.style.display = "none";
+        }
+
+        function onFail(message) {
+          alert("Failed because: " + message);
+        }
+      }
+
+      function reset() {
+        let image = document.getElementById("img-preview");
+        image.src =
+          "https://cdn.framework7.io/placeholder/nature-1000x600-3.jpg";
+        $("#teks").css("display", "block");
+        $("#pass-text").val("");
+
+        // $("#pass-text").css("display", "");
+      }
 
       function password() {
-        var things = ["aku", "kamu", "kita", "sepeda", "lucu", "imut"];
+        var things = ["aku", "kamu", "kita", "sepeda", "lucu", "halo"];
         var result = things[Math.floor(Math.random() * things.length)];
-        // $("#pass-text").val(result);
+        $("#pass-text").val(result);
       }
     </script>
   </body>

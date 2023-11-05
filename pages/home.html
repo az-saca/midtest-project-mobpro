@@ -48,7 +48,6 @@
           </div>
         </div>
       </div>
-
       <div class="card card-outline-md demo-card-header-pic">
         <div class="card-content card-content-padding">
           <button
@@ -88,6 +87,7 @@
             name="pass-text"
             style="font-size: 20px; margin-top: 20px"
             id="pass-text"
+            disabled
             placeholder="Password" />
         </div>
       </div>
@@ -106,7 +106,7 @@
           <div class="block">
             <div class="grid grid-cols-1 grid-gap">
               <button
-                class="button"
+                class="button sheet-close"
                 id="btn1"
                 style="color: black"
                 @click="${()=>speech()}">
@@ -115,10 +115,10 @@
             </div>
             <div class="grid grid-cols-1 grid-gap">
               <button
-                class="button"
+                class="button sheet-close"
                 id="btn2"
                 style="color: black"
-                @click="${()=>speech()}">
+                @click="${()=>speech2()}">
                 Select From Device
               </button>
             </div>
