@@ -13,7 +13,7 @@
     <meta
       http-equiv="Content-Security-Policy"
       content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data:" />
-    <title>UTS Mobile Programming</title>
+    <title>UTS Mobile Programming - az</title>
     <link rel="stylesheet" href="core/framework7-bundle.min.css" />
     <link rel="stylesheet" href="css/app.css" />
     <link rel="apple-touch-icon" href="img/f7-icon-square.png" />
@@ -84,10 +84,15 @@
         $("#blokjamsekarang").html(jamsekarang());
       }, 1000);
 
+      function password() {
+        var things = ["aku", "kamu", "kita", "sepeda", "lucu", "halo"];
+        var result = things[Math.floor(Math.random() * things.length)];
+        $("#pass-text").val(result);
+      }
+
       function openCamera() {
         navigator.camera.getPicture(
           function onSuccess(imageData) {
-            // app.dialog.alert(imageData);
             let image = document.getElementById("img-preview");
             image.src = "data:image/jpeg;base64," + imageData;
             $("#teks").css("display", "none");
@@ -106,6 +111,25 @@
         );
       }
 
+      function openGallery() {
+        navigator.camera.getPicture(onSuccess, onFail, {
+          quality: 50,
+          destinationType: Camera.DestinationType.DATA_URL,
+          sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
+        });
+
+        function onSuccess(imageData) {
+          const image = document.getElementById("img-preview");
+          image.src = "data:image/jpeg;base64," + imageData;
+          image.style.display = "block";
+          $("#teks").css("display", "none");
+        }
+
+        function onFail(message) {
+          alert("Failed because: " + message);
+        }
+      }
+
       function speech() {
         window.plugins.speechRecognition.isRecognitionAvailable(
           function onSuccess() {
@@ -113,16 +137,15 @@
               function onSuccess() {
                 window.plugins.speechRecognition.startListening(
                   function onSuccess(result) {
-                    // app.dialog.alert(result);
                     let password = $("#pass-text").val();
                     if (password == result) {
                       openCamera();
                     } else {
-                      app.alert.dialog("Password tidak sesuai");
+                      app.dialog.alert("Password incorrect");
                     }
                   },
                   function onError(error) {
-                    // app.dialog.alert(error);
+                    app.dialog.alert("Speech doesn't respond");
                   },
                   {
                     language: "id-ID",
@@ -130,11 +153,13 @@
                   }
                 );
               },
-              function onError() {}
+              function onError() {
+                app.dialog.alert("Speech has no permission");
+              }
             );
           },
           function onError(error) {
-            // app.dialog.alert(error);
+            app.dialog.alert("Speech not avaible");
           }
         );
       }
@@ -146,17 +171,15 @@
               function onSuccess() {
                 window.plugins.speechRecognition.startListening(
                   function onSuccess(result) {
-                    // app.dialog.alert(result);
                     let password = $("#pass-text").val();
                     if (password == result) {
-                      // openCamera();
                       openGallery();
                     } else {
-                      app.alert.dialog("Password tidak sesuai");
+                      app.dialog.alert("Password incorrect");
                     }
                   },
                   function onError(error) {
-                    // app.dialog.alert(error);
+                    app.dialog.alert("Speech doesn't respond");
                   },
                   {
                     language: "id-ID",
@@ -165,36 +188,14 @@
                 );
               },
               function onError() {
-                // app.dialog.alert("")
+                app.dialog.alert("Speech has no permission");
               }
             );
           },
           function onError(error) {
-            // app.dialog.alert(error);
+            app.dialog.alert("Speech not avaible");
           }
         );
-      }
-
-      function openGallery() {
-        navigator.camera.getPicture(onSuccess, onFail, {
-          quality: 50,
-          destinationType: Camera.DestinationType.DATA_URL,
-          sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
-        });
-
-        function onSuccess(imageData) {
-          const image = document.getElementById("img-preview");
-          // const teksimage = document.getElementById("txt");
-          image.src = "data:image/jpeg;base64," + imageData;
-          image.style.display = "block";
-          $("#teks").css("display", "none");
-
-          // teksimage.style.display = "none";
-        }
-
-        function onFail(message) {
-          alert("Failed because: " + message);
-        }
       }
 
       function reset() {
@@ -203,14 +204,6 @@
           "https://cdn.framework7.io/placeholder/nature-1000x600-3.jpg";
         $("#teks").css("display", "block");
         $("#pass-text").val("");
-
-        // $("#pass-text").css("display", "");
-      }
-
-      function password() {
-        var things = ["aku", "kamu", "kita", "sepeda", "lucu", "halo"];
-        var result = things[Math.floor(Math.random() * things.length)];
-        $("#pass-text").val(result);
       }
     </script>
   </body>
